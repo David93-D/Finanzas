@@ -13,7 +13,7 @@ const getHistoricoRegistros = (req, res) => {
 const getRegistrosMes = (req, res) => {
     const {anyo, mes} = req.body;
 
-    let sql = `SELECT * FROM registros_fi WHERE anyo = ${anyo} AND mes = ${mes}`;
+    let sql = `SELECT * FROM registros_fi WHERE anyo = '${anyo}' AND mes = '${mes}'`;
     conexion.query(sql, (err, rows, fields) => {
         if (err) throw err;
         else {
