@@ -19,9 +19,20 @@ export class RegistrosService {
     return this.http.get(this.url + "/historico");
   }
 
-  newRegistro() {
-    
+  newRegistro(registro: IRegistro) {
+    return this.http.post(this.url + "/add", registro);
   }
 
+  delRegistro(id: string) {
+    return this.http.delete(this.url + "/" + id);
+  }
+
+  getRegistro(id: string) {
+    return this.http.get(this.url + "/" + id);
+  }
+
+  editRegistro(id: string, registroModificar: IRegistro) {
+    return this.http.put(this.url + "/" + id, registroModificar);
+  }
 
 }

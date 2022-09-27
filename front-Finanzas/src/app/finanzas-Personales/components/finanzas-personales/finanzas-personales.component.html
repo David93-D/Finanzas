@@ -4,7 +4,7 @@
             <h2>{{mesActual}} {{anyoActual}}</h2>
         </div>
         <div class="col-6 justify-content-center">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Nuevo Registro <i class="fa-sharp fa-solid fa-plus"></i></button>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">Nuevo Registro <i class="fa-sharp fa-solid fa-plus"></i></button>
         </div>
     </div>
     <div class="row mt-3 justify-content-center">
@@ -17,13 +17,13 @@
     </div>
     <div class="row justify-content-center">
         <div class="table-responsive mt-3 col-lg-10 col-md-10">
-            <lista-registros [anyo]="anyoActual" [mes]="mesNum"></lista-registros>
+            <lista-registros [anyo]="anyoActual" [mes]="mesNum" #content></lista-registros>
         </div>
     </div>
 </div>
   
   <!-- Modal nuevos registros -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -31,34 +31,38 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form>
+          <form [formGroup]="formulario" (ngSubmit)="addRegister()">
             <div class="mb-3">
                 <label for="tipo" class="form-label">Tipo</label>
-                <select #tipo class="form-select" (change)="tipoSeleccionado(tipo.value)">
+                <select #tipo class="form-select" formControlName="tipo" (change)="tipoSeleccionado(tipo.value)">
                     <option selected></option>
                     <option value="Gasto">Gasto</option>
                     <option value="Ingreso">Ingreso</option>
                   </select>
+                  <span *ngIf="this.formulario.get('tipo')?.errors?.['required']">El detalle no puede quedar vacío</span>
             </div>
             <div class="mb-3">
                 <label for="concepto" class="form-label">Concepto</label>
-                <select [disabled]="isdisabled" class="form-select">
+                <select [attr.disabled]="isdisabled ? '' : null" formControlName="concepto" class="form-select">
                     <option *ngFor="let concepto of conceptos">{{concepto}}</option>
                 </select>
+                <span *ngIf="this.formulario.get('concepto')?.errors?.['required']">El Concepto no puede quedar vacío</span>
             </div>
             <div class="mb-3">
                 <label for="detalle" class="form-label">Detalle</label>
-                <input [disabled]="isdisabled" type="text" class="form-control" id="detalle">
+                <input [attr.disabled]="isdisabled ? '' : null" formControlName="detalle" type="text" class="form-control" id="detalle">
             </div>
+            <span *ngIf="this.formulario.get('detalle')?.errors?.['required']">El detalle no puede quedar vacío</span>
             <div>
                 <label for="cantidad" class="form-label">Cantidad</label>
-                <input [disabled]="isdisabled" type="number" class="form-control" id="cantidad">
+                <input [attr.disabled]="isdisabled ? '' : null" formControlName="cantidad" type="number" class="form-control" id="cantidad">
+            </div>
+            <span *ngIf="this.formulario.get('cantidad')?.errors?.['required']">La cantidad no puede quedar vacía</span>        
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Guardar</button>
             </div>
           </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary" (click)="addRegister()">Save changes</button>
         </div>
       </div>
     </div>

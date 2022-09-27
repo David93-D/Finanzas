@@ -34,6 +34,7 @@ const getRegistroParticular = (req, res) => {
 }
 
 const addRegistro = (req, res) => {
+    console.log("Entra en addRegistro!!");
     const {anyo, mes, dia, concepto, detalle, cantidad, tipo} = req.body;
 
     let sql = `INSERT INTO registros_fi(anyo, mes, dia, concepto, detalle, cantidad, tipo) 

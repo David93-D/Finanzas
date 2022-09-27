@@ -1,0 +1,33 @@
+<div class="container">
+    <h1 class="row mt-2">Modificar Registro</h1>
+    <div class="row justify-content-center">
+        <div class="row">
+            <div class="col-6">
+                <button (click)="volver()" class="btn btn-primary">Volver Atrás</button>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <form>
+                <div class="mb-3">
+                    <label class="form-label">Concepto</label>
+                    <input [(ngModel)]="registro.concepto" type="text" class="form-control" name="nombre"/>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Detalle</label>
+                    <input [(ngModel)]="registro.detalle" type="text" class="form-control" name="detalle"/>
+                </div>                
+                <div class="mb-3">
+                    <label class="form-label">Cantidad</label>
+                    <input [(ngModel)]="registro.cantidad" type="number" class="form-control" name="cantidad"/>
+                </div>                
+                <div class="mb-3">
+                    <label class="form-label">Tipo</label>
+                    <input [(ngModel)]="registro.tipo" type="text" class="form-control" name="tipo"/>
+                </div>
+                <div>
+                    <button (click)="modificar()" class="row btn btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

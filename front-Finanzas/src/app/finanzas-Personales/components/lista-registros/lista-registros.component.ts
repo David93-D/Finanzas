@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { IRegistro } from '../../interfaces/i-registro';
 import { RegistrosService } from '../../services/registros.service';
 
@@ -21,12 +23,20 @@ export class ListaRegistrosComponent implements OnInit {
     mes: 0
   }
 
-  constructor(public registrosService: RegistrosService) { }
+  formulario: FormGroup;
+
+  constructor(public fb: FormBuilder, public registrosService: RegistrosService, private router: Router) {
+    this.formulario = this.fb.group({
+      concepto: new FormControl ('', [Validators.required]),
+      detalle: new FormControl ('', [Validators.required]),
+      cantidad: new FormControl ('', [Validators.required]),
+      tipo: new FormControl ('', [Validators.required]),
+    });
+  }
 
   ngOnInit(): void {
     this.date.anyo = this.anyo;
     this.date.mes = this.mes;
-
     this.listarRegistros();
   }
 
@@ -37,6 +47,20 @@ export class ListaRegistrosComponent implements OnInit {
       },
       err => console.log(err)      
     );
+  }
+
+  deleteRegister(id: string) {
+    this.registrosService.delRegistro(id).subscribe(
+      res => {
+        console.log("Registro eliminado");
+        this.listarRegistros();
+      },
+      err => console.log(err)
+    )
+  }
+
+  editRegister(id: string) {
+    this.router.navigate(['/edit-registros/' + id]);
   }
 
   listarRegistrosHistoricos() {

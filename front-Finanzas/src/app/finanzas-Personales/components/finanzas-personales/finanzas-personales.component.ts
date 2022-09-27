@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { IRegistro } from '../../interfaces/i-registro';
+import { RegistrosService } from '../../services/registros.service';
 
 @Component({
   selector: 'finanzas-personales',
@@ -6,6 +10,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./finanzas-personales.component.css']
 })
 export class FinanzasPersonalesComponent implements OnInit {
+  
+  formulario: FormGroup;
+
+  newRegistro: IRegistro = {
+    anyo: 0,
+    mes: 0,
+    dia: 0, 
+    concepto: "", 
+    detalle: "",
+    cantidad: 0,
+    tipo: ""
+  };
 
   fecha = new Date();
 
@@ -21,17 +37,31 @@ export class FinanzasPersonalesComponent implements OnInit {
 
   mesActual = "";
   anyoActual = 0;
+  diaActual = 0;
 
   tipo = "";
 
   isdisabled = true;
 
-  constructor() { }
+  date: any = {
+    anyo: 0,
+    mes: 0
+  }
+
+  constructor(public fb: FormBuilder, public registrosService: RegistrosService, private router: Router) {
+    this.formulario = this.fb.group({
+      concepto: new FormControl ('', [Validators.required]),
+      detalle: new FormControl ('', [Validators.required]),
+      cantidad: new FormControl ('', [Validators.required]),
+      tipo: new FormControl ('', [Validators.required]),
+  });
+  }
 
   ngOnInit(): void {
     this.anyoActual = this.fecha.getFullYear();
     this.mesNum = this.fecha.getMonth()+1;
     this.mesActual = this.meses[this.mesNum];
+    this.diaActual =  this.fecha.getDate();
   }
 
   prevMonth() {
@@ -42,8 +72,23 @@ export class FinanzasPersonalesComponent implements OnInit {
     console.log("Mes Siguiente");
   }
 
-  addRegister() {
-    console.log("Nuevo Registro");
+  addRegister() {    
+    if (this.formulario.valid) {
+      this.newRegistro = {
+        anyo: this.anyoActual, 
+        mes: this.mesNum,
+        dia: this.diaActual,
+        concepto: this.formulario.value.concepto, 
+        detalle: this.formulario.value.detalle,
+        cantidad: this.formulario.value.cantidad,
+        tipo: this.formulario.value.tipo
+      }
+      
+      this.registrosService.newRegistro(this.newRegistro).subscribe();
+      //this.router.navigate(['/finanzas-personales']);
+    } else {
+      alert("Datos incompletos!!!");
+    }
   }
 
   tipoSeleccionado(value:string) {
@@ -52,7 +97,7 @@ export class FinanzasPersonalesComponent implements OnInit {
       case "":
         this.isdisabled = true;
           break;
-      case "Gasto":
+      case "Gasto":        
         this.isdisabled = false;
         this.conceptos = this.conceptosGastos;
           break;

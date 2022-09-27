@@ -4,7 +4,7 @@ const { getHistoricoRegistros, getRegistrosMes, getRegistroParticular, addRegist
 router.post('/', getRegistrosMes);
 router.get('/historico', getHistoricoRegistros);
 router.get('/:id', getRegistroParticular);
-router.post('/', addRegistro);
+router.post('/add', addRegistro);
 router.put('/:id', editRegistro);
 router.delete('/:id', delRegistro);
 

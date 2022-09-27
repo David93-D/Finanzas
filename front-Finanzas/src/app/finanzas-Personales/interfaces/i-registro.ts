@@ -1,5 +1,7 @@
 export interface IRegistro {
-    dia: Number, 
+    anyo: Number,
+    mes: Number,
+    dia: Number,
     concepto: String, 
     detalle: String,
     cantidad: Number,

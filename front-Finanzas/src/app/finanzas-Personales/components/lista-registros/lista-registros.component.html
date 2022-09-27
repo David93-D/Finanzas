@@ -5,10 +5,15 @@
         </tr>
     </thead>
     <tbody>
+        <tr *ngIf="!listRegistrosMes || listRegistrosMes.length == 0">
+            <td colspan="6">No hay registros en este mes</td>
+        </tr>
         <tr
             item-registro
             [registro]="registro"
             *ngFor="let registro of listRegistrosMes"
+            (registroEliminar)="deleteRegister($event)"
+            (registroEditar)="editRegister($event)"
         >
         </tr>
     </tbody>
