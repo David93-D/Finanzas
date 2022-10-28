@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IRegistro } from '../../interfaces/i-registro';
@@ -13,10 +13,10 @@ export class ListaRegistrosComponent implements OnInit {
 
   conceptos = [ "DIA", "CONCEPTO", "DETALLE", "€", "TIPO", "-"];
 
-  listRegistrosMes: IRegistro[] = [];
+  @Input() listaRegistros: IRegistro[] = [];
 
-  @Input() anyo: any;
-  @Input() mes: any;
+  @Output() idEliminar = new EventEmitter<string>();
+  @Output() idEditar = new EventEmitter<string>();
 
   date: any = {
     anyo: 0,
@@ -24,6 +24,9 @@ export class ListaRegistrosComponent implements OnInit {
   }
 
   formulario: FormGroup;
+
+  idElim: string = "";
+  idEdit: string = "";
 
   constructor(public fb: FormBuilder, public registrosService: RegistrosService, private router: Router) {
     this.formulario = this.fb.group({
@@ -35,41 +38,22 @@ export class ListaRegistrosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.date.anyo = this.anyo;
-    this.date.mes = this.mes;
-    this.listarRegistros();
-  }
 
-  listarRegistros() {
-    this.registrosService.getRegistrosMes(this.date).subscribe(
-      res => {
-        this.listRegistrosMes = <any>res;
-      },
-      err => console.log(err)      
-    );
   }
 
   deleteRegister(id: string) {
-    this.registrosService.delRegistro(id).subscribe(
-      res => {
-        console.log("Registro eliminado");
-        this.listarRegistros();
-      },
-      err => console.log(err)
-    )
+    this.idEliminar.emit(id);
   }
 
-  editRegister(id: string) {
-    this.router.navigate(['/edit-registros/' + id]);
-  }
 
-  listarRegistrosHistoricos() {
-    this.registrosService.getRegistrosHistoricos().subscribe(
-      res => {
-        this.listRegistrosMes = <any>res;
-      },
-      err => console.log(err)      
-    );
-  }
+
+  // listarRegistrosHistoricos() {
+  //   this.registrosService.getRegistrosHistoricos().subscribe(
+  //     res => {
+  //       this.listRegistrosMes = <any>res;
+  //     },
+  //     err => console.log(err)      
+  //   );
+  // }
 
 }

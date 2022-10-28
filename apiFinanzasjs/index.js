@@ -7,7 +7,8 @@ app.use(express.json());
 
 app.set('port', port);
 
-app.use('/api', require('./routes/registros.routes.js')); // /api/registros
+app.use('/api', require('./routes/registros.routes.js'));
+app.use('/api', require('./routes/auth.routes.js'));
 
 app.listen(app.get('port'), (err) => {
     if (err) {

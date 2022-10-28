@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IRegistro } from '../../interfaces/i-registro';
@@ -48,6 +48,11 @@ export class FinanzasPersonalesComponent implements OnInit {
     mes: 0
   }
 
+  listRegistrosMes: IRegistro[] = [];
+
+  // RDelete = "";
+  // REdit = "";
+
   constructor(public fb: FormBuilder, public registrosService: RegistrosService, private router: Router) {
     this.formulario = this.fb.group({
       concepto: new FormControl ('', [Validators.required]),
@@ -62,6 +67,11 @@ export class FinanzasPersonalesComponent implements OnInit {
     this.mesNum = this.fecha.getMonth()+1;
     this.mesActual = this.meses[this.mesNum];
     this.diaActual =  this.fecha.getDate();
+
+    this.date.anyo = this.anyoActual;
+    this.date.mes = this.mesNum;
+
+    this.listarRegistros();    
   }
 
   prevMonth() {
@@ -71,6 +81,16 @@ export class FinanzasPersonalesComponent implements OnInit {
   nextMonth() {
     console.log("Mes Siguiente");
   }
+
+  listarRegistros() {
+    this.registrosService.getRegistrosMes(this.date).subscribe(
+      res => {
+        this.listRegistrosMes = <any>res;
+      },
+      err => console.log(err)      
+    );
+  }
+
 
   addRegister() {    
     if (this.formulario.valid) {
@@ -85,10 +105,20 @@ export class FinanzasPersonalesComponent implements OnInit {
       }
       
       this.registrosService.newRegistro(this.newRegistro).subscribe();
-      //this.router.navigate(['/finanzas-personales']);
+      this.listarRegistros();
     } else {
       alert("Datos incompletos!!!");
     }
+  }
+
+  eliminar(id: string) {
+    this.registrosService.delRegistro(id).subscribe(
+      res => {
+        console.log("Registro eliminado");
+        this.listarRegistros();
+      },
+      err => console.log(err)
+    )
   }
 
   tipoSeleccionado(value:string) {

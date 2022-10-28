@@ -34,7 +34,6 @@ const getRegistroParticular = (req, res) => {
 }
 
 const addRegistro = (req, res) => {
-    console.log("Entra en addRegistro!!");
     const {anyo, mes, dia, concepto, detalle, cantidad, tipo} = req.body;
 
     let sql = `INSERT INTO registros_fi(anyo, mes, dia, concepto, detalle, cantidad, tipo) 
@@ -51,8 +50,6 @@ const addRegistro = (req, res) => {
 const editRegistro = (req, res) => {
     const {id} = req.params;
     const {concepto, detalle, cantidad, tipo} = req.body;
-
-    console.log(concepto, detalle, cantidad, tipo);
 
     let sql = `UPDATE registros_fi SET concepto ='${concepto}', detalle ='${detalle}', cantidad ='${cantidad}', tipo ='${tipo}' WHERE id = '${id}'`;
     conexion.query(sql, (err, rows, fields) => {

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { IRegistro } from '../../interfaces/i-registro';
+import { Router } from '@angular/router';
 import { RegistrosService } from '../../services/registros.service';
 
 @Component({
@@ -14,17 +14,17 @@ export class ItemRegistrosComponent implements OnInit {
   @Output() registroEliminar = new EventEmitter<string>();
   @Output() registroEditar = new EventEmitter<string>();
 
-  constructor(public registrosService: RegistrosService) { }
+  constructor(public registrosService: RegistrosService, private router: Router) { }
 
   ngOnInit(): void {
   }
 
   editRegister(id: string) {
-    this.registroEditar.emit(id);
+    this.router.navigate(['/edit-registros/' + id]);
   }
 
   deleteRegister(id: string) {
-    this.registroEliminar.emit(id);
+  this.registroEliminar.emit(id);
   }
 
 }
