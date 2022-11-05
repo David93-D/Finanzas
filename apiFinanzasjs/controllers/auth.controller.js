@@ -14,10 +14,6 @@ function verifyToken(req, res, next) {
     } else {
         res.status(401).json('Token vacio');
     }
-} 
-
-const testing = (req, res, next) => {
-    res.json("Información secreta");
 }
 
 // LOGIN
@@ -59,7 +55,7 @@ const registerUser = async (req, res) => {
     let passwordHash = await generarHash(password);
 
     let sql = `INSERT INTO users_fi(user, nombre, apellidos, email, role, password) 
-    VALUES ('${user}','${nombre}','${apellidos}','${email}','${role}','${passwordHash}')`;
+    VALUES ('${user}','${nombre}','${apellidos}','${email}','current','${passwordHash}')`;
 
     conexion.query(sql, (err, rows, fields) => {
         if (err) throw err;
@@ -71,14 +67,13 @@ const registerUser = async (req, res) => {
 
 const userExist = (req, res) => {
     const {email, user} = req.body;
-
+    
     let sql = `SELECT * FROM users_fi WHERE email = '${email}' OR user = '${user}'`;
 
     conexion.query(sql, (err, rows, fields) => {
         if (err) throw err;
         else {
-            console.log(rows.length);
-            if (rows.length != 0) {
+            if (rows.length > 0) {
                 res.json({status: false});
             } else {
                 res.json({status: true});
@@ -100,7 +95,6 @@ function compararContrasenya(password, hash) {
 
 module.exports = {
     verifyToken,
-    testing,
     getUser,
     registerUser,
     userExist

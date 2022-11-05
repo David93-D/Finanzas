@@ -1,8 +1,10 @@
-<div class="container-fluid">
-    <div class="row justify-content-center align-items-center pt-5">
-        <div class="col">
-            <div class="d-flex justify-content-center">
-                <div class="card" style="width: 25rem;">
+<div class="container-fluid fondo-app p-lg-5 p-md-3 p-2">
+    <div class="row d-flex align-items-center justify-content-center">
+        <div class="col-lg-6" style="color: #7D6E83;">
+            <h2 class="text-center">Que no te confundan, sin dinero no eres nada</h2>
+        </div>
+        <div class="col-lg-6 d-flex justify-content-center">
+                <div class="card" style="width: 25rem; background-color: #DFD3C3; color: #7D6E83; border: 0.4px solid #7D6E83; font-weight: 700; box-shadow: 2px 2px 5px 0.7px rgb(118, 113, 113);">
                     <div class="card-body">
                         <h2 class="card-title text-center">Login</h2>
                         <form [formGroup]="login" (ngSubmit)="signIn()">
@@ -31,7 +33,6 @@
                         </form>
                     </div>
                 </div>
-            </div>
         </div>
     </div>
 </div>

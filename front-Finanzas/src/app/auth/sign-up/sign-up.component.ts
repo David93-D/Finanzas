@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'sign-up',
@@ -10,9 +11,9 @@ export class SignUpComponent implements OnInit {
 
   alta: FormGroup;
 
-  constructor(public fb: FormBuilder) {
+  constructor(public fb: FormBuilder, public authService: AuthService) {
     this.alta = this.fb.group({
-      username: new FormControl ('', [Validators.required, Validators.minLength(3)]),
+      user: new FormControl ('', [Validators.required, Validators.minLength(3)]),
       nombre: new FormControl ('', [Validators.required, Validators.minLength(3)]),
       apellidos: new FormControl ('', [Validators.required, Validators.minLength(5)]),
       email: new FormControl ('', [Validators.required, Validators.email]),
@@ -27,14 +28,21 @@ export class SignUpComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  signUp() {
+  async signUp() {
     if (this.alta.valid) {
-      console.log("Envio de Formulario!!");
-      console.log(this.alta.value);
-      
+      this.authService.existUser(this.alta.value.email, this.alta.value.username).subscribe( // Comprobar ya existe el usuario
+        res => { 
+          if (Object.values(res)[0]) { // Alta de usuario
+            this.authService.newUser(this.alta.value).subscribe();
+            alert("Se ha creado el usuario exitosamente!");
+          } else {
+            alert("Ya existe un Usuario con el mismo nombre de usuario o email");
+          }
+        },
+        err => console.log(err)
+      );      
     } else {
-      console.log("Invalido!!");
-      
+      alert("Usuario No Valido!!");
     }
   }
 

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'sign-in',
@@ -10,7 +12,7 @@ export class SignInComponent implements OnInit {
 
   login: FormGroup;
 
-  constructor(public fb: FormBuilder) {
+  constructor(public fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.login = this.fb.group({
       user: new FormControl ('', [Validators.required]),
       password: new FormControl ('', Validators.required)
@@ -22,12 +24,16 @@ export class SignInComponent implements OnInit {
 
   signIn() {
     if (this.login.valid) {
-      console.log(this.login.value);
       
+      this.authService.login(this.login.value.user, this.login.value.password).subscribe( (res: any) => {
+          localStorage.setItem('token', res.token);
+          this.router.navigate(['finanzas-personales']);
+      });
+
       // Llamamos al servicio que hace la petición al servicio de login
       // Si la respuesta del servicio es vacia devolver mensaje de error y permanecer en login
       // Si existe guardar en localstorage el token devuelto y redirijia a la sección finanzaspersonales
-      console.log("Envio de Formulario!");
+      //console.log("Envio de Formulario!");
     }
   }
 

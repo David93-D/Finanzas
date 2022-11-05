@@ -7,12 +7,12 @@
                         <h2 class="card-title text-center">Registro</h2>
                         <form [formGroup]="alta" (ngSubmit)="signUp()">
                             <div class="col mb-3">
-                                <label for="username" class="form-label">Nombre de Usuario</label>
-                                <input type="text" formControlName="username" class="form-control" id="username">
-                                <span class="text-danger" *ngIf="this.alta.controls['username'].dirty && this.alta.get('username')?.errors?.['required']">
+                                <label for="user" class="form-label">Nombre de Usuario</label>
+                                <input type="text" formControlName="user" class="form-control" id="user">
+                                <span class="text-danger" *ngIf="this.alta.controls['user'].dirty && this.alta.get('user')?.errors?.['required']">
                                     Introduzca un nombre de Usuario
                                 </span>
-                                <span class="text-danger" *ngIf="this.alta.controls['username'].dirty && this.alta.get('username')?.errors?.['minlength']">
+                                <span class="text-danger" *ngIf="this.alta.controls['user'].dirty && this.alta.get('user')?.errors?.['minlength']">
                                     El nombre de Usuario debe tener más de 3 caracteres
                                 </span>
                             </div>

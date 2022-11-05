@@ -9,12 +9,14 @@ import { FinanzasPersonalesComponent } from './finanzas-Personales/components/fi
 import { ListaRegistrosComponent } from './finanzas-Personales/components/lista-registros/lista-registros.component';
 import { ItemRegistrosComponent } from './finanzas-Personales/components/item-registros/item-registros.component';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { EditRegistrosComponent } from './finanzas-Personales/components/edit-registros/edit-registros.component';
 
 import { FormsModule } from '@angular/forms';
 import { SignInComponent } from './auth/sign-in/sign-in.component';
 import { SignUpComponent } from './auth/sign-up/sign-up.component';
+import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
+import { TokenInterceptorService } from './interceptors/token-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,13 @@ import { SignUpComponent } from './auth/sign-up/sign-up.component';
     ReactiveFormsModule,
     FormsModule
   ],
-  providers: [],
+  providers: [
+    // JWT
+    {provide: JWT_OPTIONS, useValue: JWT_OPTIONS},
+    JwtHelperService,
+    // Token interceptor
+    {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

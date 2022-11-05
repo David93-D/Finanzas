@@ -1,1 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+html {
+    background-color: #F8EDE3;
+}
+
+.fondo-app {
+    background-color: #F8EDE3;
+}

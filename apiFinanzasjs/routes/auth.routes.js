@@ -1,7 +1,7 @@
 const router = require('express').Router();
-const {verifyToken, testing, registerUser, userExist, getUser} = require("../controllers/auth.controller.js");
+const {verifyToken, registerUser, userExist, getUser} = require("../controllers/auth.controller.js");
 
-router.post('/test', verifyToken, testing); // PARA PRUEBAS DE JWT
+router.post('/test', verifyToken); // PARA PRUEBAS DE JWT
 router.post('/login', getUser);
 router.post('/existUser', userExist);
 router.post('/registroUsuarios', registerUser);
