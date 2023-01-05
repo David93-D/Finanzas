@@ -26,20 +26,19 @@ const getUser = (req, res) => {
         if (err) throw err;
         else {
             if (rows.length != 0) {
-                
                 const valido = compararContrasenya(password, rows[0].password);
-                    
                 if (!valido) {
                     res.json({status: false});
                 } else {
-
                     const userForToken = {
+                        id: rows[0].id,
                         user: rows[0].user,
+                        nombre: rows[0].nombre,
+                        apellidos: rows[0].apellidos,
+                        email: rows[0].email,
                         role: rows[0].role
                     }
-
                     const token = jwt.sign(userForToken, 'secret');
-
                     res.json({token})
                 }
             } else {
@@ -50,7 +49,7 @@ const getUser = (req, res) => {
 }
 
 const registerUser = async (req, res) => {
-    const {user, nombre, apellidos, email, role, password} = req.body;
+    const {user, nombre, apellidos, email, password} = req.body;
 
     let passwordHash = await generarHash(password);
 
@@ -93,9 +92,24 @@ function compararContrasenya(password, hash) {
     return result;
 }
 
+const updateUser = (req, res) => {
+    const { id } = req.params;
+    const { user, nombre, apellidos, email} = req.body;
+
+    let sql = `UPDATE users_fi SET user = '${user}', nombre ='${nombre}', apellidos ='${apellidos}', email ='${email}' WHERE id = '${id}'`;
+
+    conexion.query(sql, (err, rows, fields) => {
+        if (err) throw err;
+        else {
+            res.json({status: 'Usuario Actualizado!'});
+        }
+    })
+}
+
 module.exports = {
     verifyToken,
     getUser,
     registerUser,
-    userExist
+    userExist,
+    updateUser
 };

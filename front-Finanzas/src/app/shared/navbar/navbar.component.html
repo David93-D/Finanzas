@@ -27,11 +27,13 @@
           <li class="nav-item">
             <a class="nav-link" aria-current="page" routerLink="/analisis-macro" style="color: #92BA92;">Análisis Macro</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" routerLink="/perfil" style="color: #92BA92;">Tu perfil</a>
+          </li>
         </ul>
-        <form class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
+        <div class="d-flex">
+          <p>{{ nombreUsuario }}</p>
+        </div>
       </div>
     </div>
   </nav>

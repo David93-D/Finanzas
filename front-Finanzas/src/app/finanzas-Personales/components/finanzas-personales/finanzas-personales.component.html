@@ -42,25 +42,25 @@
                     <option value="Gasto">Gasto</option>
                     <option value="Ingreso">Ingreso</option>
                   </select>
-                  <span *ngIf="this.formulario.get('tipo')?.errors?.['required']">El detalle no puede quedar vacío</span>
+                  <span style="color: red;" *ngIf="this.formulario.controls['tipo'].dirty && this.formulario.get('tipo')?.errors?.['required']">El detalle no puede quedar vacío</span>
             </div>
             <div class="mb-3">
                 <label for="concepto" class="form-label">Concepto</label>
                 <select [attr.disabled]="isdisabled ? '' : null" formControlName="concepto" class="form-select">
                     <option *ngFor="let concepto of conceptos">{{concepto}}</option>
                 </select>
-                <span *ngIf="this.formulario.get('concepto')?.errors?.['required']">El Concepto no puede quedar vacío</span>
+                <span style="color: red;" *ngIf="this.formulario.controls['concepto'].dirty && this.formulario.get('concepto')?.errors?.['required']">El Concepto no puede quedar vacío</span>
             </div>
             <div class="mb-3">
                 <label for="detalle" class="form-label">Detalle</label>
                 <input [attr.disabled]="isdisabled ? '' : null" formControlName="detalle" type="text" class="form-control" id="detalle">
             </div>
-            <span *ngIf="this.formulario.get('detalle')?.errors?.['required']">El detalle no puede quedar vacío</span>
+            <span style="color: red;" *ngIf="this.formulario.controls['detalle'].dirty && this.formulario.get('detalle')?.errors?.['required']">El detalle no puede quedar vacío</span>
             <div>
                 <label for="cantidad" class="form-label">Cantidad</label>
                 <input [attr.disabled]="isdisabled ? '' : null" formControlName="cantidad" type="number" class="form-control" id="cantidad">
             </div>
-            <span *ngIf="this.formulario.get('cantidad')?.errors?.['required']">La cantidad no puede quedar vacía</span>        
+            <span style="color: red;" *ngIf="this.formulario.controls['cantidad'].dirty && this.formulario.get('cantidad')?.errors?.['required']">La cantidad no puede quedar vacía</span>        
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
               <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Guardar</button>

@@ -1,22 +1,22 @@
-<div class="container-fluid fondo-app p-lg-5 p-md-3 p-2">
+<div class="container-fluid fondo-app p-lg-5 p-md-3 p-2" style="background-color: #d4d8f0;">
     <div class="row d-flex align-items-center justify-content-center">
-        <div class="col-lg-6" style="color: #7D6E83;">
+        <div class="col-lg-6" style="color: #232946;">
             <h2 class="text-center">Que no te confundan, sin dinero no eres nada</h2>
         </div>
         <div class="col-lg-6 d-flex justify-content-center">
-                <div class="card" style="width: 25rem; background-color: #DFD3C3; color: #7D6E83; border: 0.4px solid #7D6E83; font-weight: 700; box-shadow: 2px 2px 5px 0.7px rgb(118, 113, 113);">
+                <div class="card" style="width: 25rem; background-color: #fffffe;">
                     <div class="card-body">
-                        <h2 class="card-title text-center">Login</h2>
+                        <h2 class="card-title text-center" style="color: #232946;">Login</h2>
                         <form [formGroup]="login" (ngSubmit)="signIn()">
                             <div class="mb-3">
-                            <label for="user" class="form-label">Nombre de Usuario</label>
+                            <label for="user" class="form-label" style="color: #232946;">Nombre de Usuario</label>
                                 <input type="text" formControlName="user" class="form-control" id="user">
                                 <span class="text-danger" *ngIf="this.login.controls['user'].dirty && this.login.hasError('required')">
                                     Debe introducir su nombre de usuario
                                 </span>
                             </div>
                             <div class="mb-3">
-                                <label for="password" class="form-label">Password</label>
+                                <label for="password" class="form-label" style="color: #232946;">Password</label>
                                 <input type="password" formControlName="password" class="form-control" id="password">
                                 <span class="text-danger" *ngIf="this.login.controls['password'].dirty && this.login.hasError('required', 'password')">
                                     Debe introducir una contraseña
@@ -24,11 +24,11 @@
                             </div>
                             <div class="mb-3 form-check">
                                 <input type="checkbox" class="form-check-input" id="check">
-                                <label class="form-check-label" for="checkbox">Check me out</label>
+                                <label class="form-check-label" for="checkbox" style="color: #232946;">Check me out</label>
                             </div>
                             <div class="d-flex justify-content-between">
-                                <button type="submit" class="btn btn-primary">Acceder</button>
-                                <button type="button" class="btn btn-info" routerLink="/signUp">Darse de alta</button>
+                                <button type="submit" class="btn" style="background-color: #232946; color: #b8c1ec;">Acceder</button>
+                                <button type="button" class="btn" style="background-color: #232946; color: #b8c1ec;" routerLink="/signUp">Darse de alta</button>
                             </div>
                         </form>
                     </div>

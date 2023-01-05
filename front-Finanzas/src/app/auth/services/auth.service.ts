@@ -14,9 +14,6 @@ export class AuthService {
     private http : HttpClient,
     private jwtHelper: JwtHelperService) { }
 
-  // npm install --save @auth0/angular-jwt
-  // Importación en app.module.ts
-
   isAuth() {
     const token = localStorage.getItem("token")!;
     if ( this.jwtHelper.isTokenExpired(token) || !localStorage.getItem('token')) {
@@ -35,6 +32,10 @@ export class AuthService {
 
   existUser( email: String, user: String ) {
     return this.http.post(this.url + '/existUser', { email, user });
+  }
+
+  updateUser( id: String, modificaciones: any ) {    
+    return this.http.put(this.url + '/actualizarUsuario/' + id, modificaciones );
   }
 
 }

@@ -17,6 +17,9 @@ import { SignInComponent } from './auth/sign-in/sign-in.component';
 import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { TokenInterceptorService } from './interceptors/token-interceptor.service';
+import { PerfilUsuarioComponent } from './auth/perfil-usuario/perfil-usuario.component';
+
+
 
 @NgModule({
   declarations: [
@@ -27,7 +30,8 @@ import { TokenInterceptorService } from './interceptors/token-interceptor.servic
     ItemRegistrosComponent,
     EditRegistrosComponent,
     SignInComponent,
-    SignUpComponent
+    SignUpComponent,
+    PerfilUsuarioComponent
   ],
   imports: [
     BrowserModule,

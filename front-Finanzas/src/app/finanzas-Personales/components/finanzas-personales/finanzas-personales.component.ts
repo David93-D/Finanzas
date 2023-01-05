@@ -50,9 +50,6 @@ export class FinanzasPersonalesComponent implements OnInit {
 
   listRegistrosMes: IRegistro[] = [];
 
-  // RDelete = "";
-  // REdit = "";
-
   constructor(public fb: FormBuilder, public registrosService: RegistrosService, private router: Router) {
     this.formulario = this.fb.group({
       concepto: new FormControl ('', [Validators.required]),
@@ -106,6 +103,10 @@ export class FinanzasPersonalesComponent implements OnInit {
       
       this.registrosService.newRegistro(this.newRegistro).subscribe();
       this.listarRegistros();
+
+      // Eliminamos el contenido del objeto para que no hayan datos al volver a abrir el modal
+      this.formulario.reset();
+
     } else {
       alert("Datos incompletos!!!");
     }
