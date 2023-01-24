@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -12,7 +14,7 @@ export class SignInComponent implements OnInit {
 
   login: FormGroup;
 
-  constructor(public fb: FormBuilder, private authService: AuthService, private router: Router) {
+  constructor(public fb: FormBuilder, private jwtHelper: JwtHelperService, private authService: AuthService, private router: Router) {
     this.login = this.fb.group({
       user: ['', [Validators.required]],
       password: ['', [Validators.required]]
@@ -24,13 +26,29 @@ export class SignInComponent implements OnInit {
 
   signIn() {
     if (this.login.valid) {
-      this.authService.login(this.login.value.user, this.login.value.password).subscribe( (res: any) => {
-          localStorage.setItem('token', res.token);
-          this.router.navigate(['finanzas-personales']);
-      });
+      this.authService.login(this.login.value.user, this.login.value.password).subscribe( 
+        (res: any) => { 
+          switch (res.status) {
+            case true:
+              localStorage.setItem('token', res.token);
+              const token = localStorage.getItem("token")!;
+              const { user } = this.jwtHelper.decodeToken(token);        
+              this.authService.setMostrar(user); 
+              this.router.navigate(['finanzas-personales']);
+              break;
+            case false:
+              alert("Contraseña no valida!!!");  
+              break;
+            case null:
+              alert("El usuario no existe!!!");    
+              break;
+            default:
+              break;
+          }
+        }
+      );
     } else {
       alert("Introduzca usuario y contraseña");
     }
   }
-
 }

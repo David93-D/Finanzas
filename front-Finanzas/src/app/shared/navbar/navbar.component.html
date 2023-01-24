@@ -21,8 +21,9 @@
             <a class="nav-link" aria-current="page" routerLink="/signIn" style="color: #92BA92;">Login</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" routerLink="/finanzas-personales" style="color: #92BA92;">Finanzas
-              Personales</a>
+            <a class="nav-link" aria-current="page" routerLink="/finanzas-personales" style="color: #92BA92;">
+              Finanzas Personales
+            </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" aria-current="page" routerLink="/analisis-macro" style="color: #92BA92;">Análisis Macro</a>
@@ -30,9 +31,18 @@
           <li class="nav-item">
             <a class="nav-link" aria-current="page" routerLink="/perfil" style="color: #92BA92;">Tu perfil</a>
           </li>
+          <li 
+            class="nav-item"
+            *ngIf="usuario != ''"
+          >
+            <a class="nav-link" aria-current="page" (click)="logout()" style="color: #92BA92; cursor: pointer;">
+              Cerrar Sesión
+            </a>
+          </li>
+          <p></p>
         </ul>
-        <div class="d-flex">
-          <p>{{ nombreUsuario }}</p>
+        <div class="d-flex" *ngIf="usuario != ''">
+          <p>{{ usuario }}</p>
         </div>
       </div>
     </div>

@@ -8,7 +8,6 @@ function verifyToken(req, res, next) {
     const token = req.headers.authorization.substr(7);
     if (token !== '') {
         const content = jwt.verify(token, 'secret');
-        console.log(content);
         req.data = content;
         next();
     } else {
@@ -39,7 +38,7 @@ const getUser = (req, res) => {
                         role: rows[0].role
                     }
                     const token = jwt.sign(userForToken, 'secret');
-                    res.json({token})
+                    res.json({token, status: true})
                 }
             } else {
                 res.json({status: null});

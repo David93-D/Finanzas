@@ -60,24 +60,51 @@ export class FinanzasPersonalesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.anyoActual = this.fecha.getFullYear();
-    this.mesNum = this.fecha.getMonth()+1;
-    this.mesActual = this.meses[this.mesNum];
-    this.diaActual =  this.fecha.getDate();
-
-    this.date.anyo = this.anyoActual;
-    this.date.mes = this.mesNum;
-
-    this.listarRegistros();    
+    this.modificarFecha("Inicio");
   }
 
   prevMonth() {
-    console.log("Mes Anterior");
+    this.modificarFecha("Atras");
   }
 
   nextMonth() {
-    console.log("Mes Siguiente");
+    this.modificarFecha("Adelante");
   }
+
+  modificarFecha(accion: string) {
+    switch (accion) {
+      case "Inicio":
+        this.anyoActual = this.fecha.getFullYear();
+        this.mesNum = this.fecha.getMonth()+1;
+        this.diaActual =  this.fecha.getDate();
+        break;
+      case "Atras":
+        this.mesNum = this.mesNum-1;
+        if (this.mesNum == 0) {
+          this.mesNum = 12;
+          this.mesActual = this.meses[this.mesNum];
+          this.anyoActual = this.anyoActual-1;
+        }
+        break;
+      case "Adelante":
+        this.mesNum = this.mesNum+1;
+        if (this.mesNum == 13) {
+          this.mesNum = 1;
+          this.mesActual = this.meses[this.mesNum];
+          this.anyoActual = this.anyoActual+1;
+        }
+        break;
+      default:
+        break;
+    }
+    this.date.anyo = this.anyoActual;
+    this.date.mes = this.mesNum;
+    this.mesActual = this.meses[this.mesNum];
+    this.date.anyo = this.anyoActual;
+    this.date.mes = this.mesNum;
+    this.listarRegistros();
+  }
+
 
   listarRegistros() {
     this.registrosService.getRegistrosMes(this.date).subscribe(
@@ -115,7 +142,6 @@ export class FinanzasPersonalesComponent implements OnInit {
   eliminar(id: string) {
     this.registrosService.delRegistro(id).subscribe(
       res => {
-        console.log("Registro eliminado");
         this.listarRegistros();
       },
       err => console.log(err)

@@ -22,7 +22,7 @@ export class PerfilUsuarioComponent implements OnInit {
     email: ''
   }
 
-  constructor(private jwtHelper: JwtHelperService, public fb: FormBuilder, public authService: AuthService,  private router: Router) {
+  constructor(private jwtHelper: JwtHelperService, public fb: FormBuilder, public authService: AuthService, private router: Router) {
     this.modificarUser = this.fb.group({
       user:  new FormControl ('', [Validators.required, Validators.minLength(3)]),
       nombre: new FormControl ('', [Validators.required, Validators.minLength(3)]),
