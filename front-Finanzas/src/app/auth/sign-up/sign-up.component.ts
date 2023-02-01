@@ -69,7 +69,7 @@ export class SignUpComponent implements OnInit {
 
   canExit() {
     if (this.alta.value) {
-      return confirm("Ha realizado cambios en el formulario. ¿Desea salir?");
+      return confirm("Ha realizado cambios para darse de alta. ¿Desea salir?");
     } else {
       return true;
     }

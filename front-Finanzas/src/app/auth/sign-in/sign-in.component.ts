@@ -30,10 +30,7 @@ export class SignInComponent implements OnInit {
         (res: any) => { 
           switch (res.status) {
             case true:
-              localStorage.setItem('token', res.token);
-              const token = localStorage.getItem("token")!;
-              const { user } = this.jwtHelper.decodeToken(token);        
-              this.authService.setMostrar(user); 
+              this.inicioSesion(res);
               this.router.navigate(['finanzas-personales']);
               break;
             case false:
@@ -51,4 +48,13 @@ export class SignInComponent implements OnInit {
       alert("Introduzca usuario y contraseña");
     }
   }
+
+  inicioSesion(respuesta: any) {
+    localStorage.setItem('token', respuesta.token);
+    const token = localStorage.getItem("token")!;
+    const { user } = this.jwtHelper.decodeToken(token);       
+    this.authService.setMostrar(user); 
+  }
+
+
 }

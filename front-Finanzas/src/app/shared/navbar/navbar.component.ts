@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/services/auth.service';
-import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'navbar',
@@ -15,11 +13,15 @@ export class NavbarComponent implements OnInit {
 
   constructor(
     private jwtHelper: JwtHelperService, 
-    private router: Router, 
     private authService: AuthService
   ) { }
 
   ngOnInit(): void {  
+    const token = localStorage.getItem("token")!;
+    if (token) {
+      const { user } = this.jwtHelper.decodeToken(token);  
+      this.authService.setMostrar(user);
+    }
     this.getUser();
   }
 

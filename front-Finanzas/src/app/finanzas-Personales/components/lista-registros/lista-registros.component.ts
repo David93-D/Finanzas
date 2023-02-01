@@ -14,6 +14,7 @@ export class ListaRegistrosComponent implements OnInit {
   conceptos = [ "DIA", "CONCEPTO", "DETALLE", "€", "TIPO", "-"];
 
   @Input() listaRegistros: IRegistro[] = [];
+  @Input() totalMes: number = 0;
 
   @Output() idEliminar = new EventEmitter<string>();
   @Output() idEditar = new EventEmitter<string>();
@@ -38,22 +39,11 @@ export class ListaRegistrosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    
   }
 
   deleteRegister(id: string) {
     this.idEliminar.emit(id);
   }
-
-
-
-  // listarRegistrosHistoricos() {
-  //   this.registrosService.getRegistrosHistoricos().subscribe(
-  //     res => {
-  //       this.listRegistrosMes = <any>res;
-  //     },
-  //     err => console.log(err)      
-  //   );
-  // }
 
 }

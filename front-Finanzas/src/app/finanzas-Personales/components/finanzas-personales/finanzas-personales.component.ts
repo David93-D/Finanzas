@@ -50,6 +50,8 @@ export class FinanzasPersonalesComponent implements OnInit {
 
   listRegistrosMes: IRegistro[] = [];
 
+  totalMes: any = 0;
+
   constructor(public fb: FormBuilder, public registrosService: RegistrosService, private router: Router) {
     this.formulario = this.fb.group({
       concepto: new FormControl ('', [Validators.required]),
@@ -110,6 +112,9 @@ export class FinanzasPersonalesComponent implements OnInit {
     this.registrosService.getRegistrosMes(this.date).subscribe(
       res => {
         this.listRegistrosMes = <any>res;
+        let gastos = Object.values(res).filter(function (e) { return e.tipo == "Gasto" }).reduce(function (previous, current) { return previous - current.cantidad }, 0);
+        let ingresos = Object.values(res).filter(function (e) { return e.tipo == "Ingreso" }).reduce(function (previous, current) { return previous + current.cantidad }, 0);
+        this.totalMes = ingresos + gastos;
       },
       err => console.log(err)      
     );
