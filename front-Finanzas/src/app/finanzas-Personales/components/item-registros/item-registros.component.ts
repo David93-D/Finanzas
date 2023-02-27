@@ -24,7 +24,9 @@ export class ItemRegistrosComponent implements OnInit {
   }
 
   deleteRegister(id: string) {
-  this.registroEliminar.emit(id);
+    if (confirm('¿Seguro que desea eliminar registro?')) {
+      this.registroEliminar.emit(id);
+    }
   }
 
 }

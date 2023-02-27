@@ -1,7 +1,7 @@
 <td>{{registro.dia}}</td>
 <td>{{registro.concepto}}</td>
 <td>{{registro.detalle}}</td>
-<td>{{registro.cantidad}}</td>
+<td [ngStyle]="{'color': registro.tipo == 'Gasto' ? 'red':'green'}">{{registro.cantidad}}</td>
 <td>{{registro.tipo}}</td>
 <td>
     <button (click)="editRegister(registro.id)" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip on top"><i class="fa-solid fa-pen-to-square"></i></button>
