@@ -18,7 +18,7 @@ import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { TokenInterceptorService } from './interceptors/token-interceptor.service';
 import { PerfilUsuarioComponent } from './auth/perfil-usuario/perfil-usuario.component';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -38,7 +38,8 @@ import { PerfilUsuarioComponent } from './auth/perfil-usuario/perfil-usuario.com
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule
   ],
   providers: [
     // JWT

@@ -5,7 +5,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngIf="!listaRegistros || listaRegistros.length == 0">
+        <tr *ngIf="!listaRegistros || listaRegistros.length == 0" @fadeIn>
             <td colspan="6">No hay registros en este mes</td>
         </tr>
         <tr
@@ -13,6 +13,7 @@
             [registro]="registro"
             *ngFor="let registro of listaRegistros"
             (registroEliminar)="deleteRegister($event)"
+            @fadeIn
         >
         </tr>
         <tr>

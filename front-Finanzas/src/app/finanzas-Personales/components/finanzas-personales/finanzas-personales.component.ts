@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IRegistro } from '../../interfaces/i-registro';
@@ -7,7 +7,7 @@ import { RegistrosService } from '../../services/registros.service';
 @Component({
   selector: 'finanzas-personales',
   templateUrl: './finanzas-personales.component.html',
-  styleUrls: ['./finanzas-personales.component.css']
+  styleUrls: ['./finanzas-personales.component.css'],
 })
 export class FinanzasPersonalesComponent implements OnInit {
   

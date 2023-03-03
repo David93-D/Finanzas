@@ -5,7 +5,7 @@ import { RegistrosService } from '../../services/registros.service';
 @Component({
   selector: 'tr[item-registro]',
   templateUrl: './item-registros.component.html',
-  styleUrls: ['./item-registros.component.css']
+  styleUrls: ['./item-registros.component.css'],
 })
 export class ItemRegistrosComponent implements OnInit {
 

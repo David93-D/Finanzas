@@ -12,7 +12,7 @@
             <button (click)="prevMonth()" class="btn btn-primary"><i class="fa-solid fa-arrow-left"></i> Mes Anterior</button>
         </div>
         <div class="col-6 text-center">
-            <button (click)="nextMonth()" class="btn btn-primary">Mes Siguiente <i class="fa-solid fa-arrow-right"></i></button>
+            <button *ngIf="mesNum != this.fecha.getMonth()+1" (click)="nextMonth()" class="btn btn-primary">Mes Siguiente <i class="fa-solid fa-arrow-right"></i></button>
         </div>
     </div>
     <div class="row justify-content-center">
