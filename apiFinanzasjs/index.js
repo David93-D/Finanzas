@@ -3,6 +3,8 @@ const port = (process.env.port || 3000);
 
 const app = express();
 
+require('dotenv').config()
+
 app.use(express.json());
 
 app.set('port', port);
