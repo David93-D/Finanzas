@@ -21,8 +21,10 @@ const transicionSalida = transition(':leave', [
   animate('1s ease-out', style({ opacity: 0 }))
 ]);
 
-const entradaElemento = trigger('fadeIn', [transicionEntrada]);
-const salidaElemento = trigger('fadeOut', [transicionSalida]);
+const entradaElemento = trigger('entradaElemento', [transicionEntrada]);
+const salidaElemento = trigger('salidaElemento', [transicionSalida]);
+
+// ANIMACIONES CON ESTADOS
 
 // const fadeInOut = trigger('fadeInOut', [
 //   state(

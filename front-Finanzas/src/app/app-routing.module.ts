@@ -17,8 +17,8 @@ const routes: Routes = [
   },
   {path: "finanzas-personales", 
     component: FinanzasPersonalesComponent, 
-    canActivate: [AuthGuard, RoleGuard], 
-    data: { expectedRole: ["current", "admin"] } 
+    canActivate: [AuthGuard, RoleGuard], // Comprobamos que se ha autenticado y que el rol de usuario sea el permitido
+    data: { expectedRole: ["current", "admin"] } // Si no es un usario current o admin no puede acceder a finanzas-personales
   },
   {path: "edit-registros/:id", component: EditRegistrosComponent},
   {path: "perfil", 

@@ -21,7 +21,7 @@ export class SignUpComponent implements OnInit {
       repPassword: new FormControl ('', Validators.required)
     },
     {
-      validators: this.mustmatch('password', 'repPassword')
+      validators: this.mustmatch('password', 'repPassword') // Validador adicional para comprobar que coinciden las contraseñas
     });
   }
 
