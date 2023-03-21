@@ -5,25 +5,6 @@ import { Router } from '@angular/router';
 import { IRegistro } from '../../interfaces/i-registro';
 import { RegistrosService } from '../../services/registros.service';
 
-// ANIMACIONES Y ESTADOS
-
-const transicionEntrada = transition(':enter', [
-  style({
-    opacity: 0
-  }),
-  animate('1s ease-in', style({opacity: 1}))
-]);
-
-const transicionSalida = transition(':leave', [
-  style({
-    opacity: 1
-  }),
-  animate('1s ease-out', style({ opacity: 0 }))
-]);
-
-const entradaElemento = trigger('entradaElemento', [transicionEntrada]);
-const salidaElemento = trigger('salidaElemento', [transicionSalida]);
-
 // ANIMACIONES CON ESTADOS
 
 // const fadeInOut = trigger('fadeInOut', [
@@ -47,8 +28,18 @@ const salidaElemento = trigger('salidaElemento', [transicionSalida]);
   selector: 'lista-registros',
   templateUrl: './lista-registros.component.html',
   styleUrls: ['./lista-registros.component.css'],
-  animations: [entradaElemento, salidaElemento]
-  //animations: [fadeInOut]
+  animations: [
+    trigger('animacionItemLista', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('500ms', style({ opacity: 1 }))
+      ]),
+      transition(':leave', [
+        style({ opacity: 1 }),
+        animate('500ms', style({ opacity: 0 }))
+      ])
+    ])
+  ]
 })
 export class ListaRegistrosComponent implements OnInit {
 

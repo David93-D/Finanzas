@@ -5,7 +5,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngIf="!listaRegistros || listaRegistros.length == 0" @entradaElemento>
+        <tr *ngIf="!listaRegistros || listaRegistros.length == 0" @animacionItemLista>
             <td colspan="6">No hay registros en este mes</td>
         </tr>
         <tr
@@ -13,7 +13,7 @@
             [registro]="registro"
             *ngFor="let registro of listaRegistros"
             (registroEliminar)="deleteRegister($event)"
-            @entradaElemento
+            @animacionItemLista
         >
         </tr>
         <tr>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { AuthService } from 'src/app/auth/services/auth.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'navbar',
@@ -13,8 +14,12 @@ export class NavbarComponent implements OnInit {
 
   constructor(
     private jwtHelper: JwtHelperService, 
-    private authService: AuthService
-  ) { }
+    private authService: AuthService,
+    public translate: TranslateService
+  ) {
+    translate.addLangs(['es', 'en']);
+    translate.setDefaultLang('es');
+  }
 
   ngOnInit(): void {  
     const token = localStorage.getItem("token")!;
@@ -37,6 +42,10 @@ export class NavbarComponent implements OnInit {
         this.usuario = user;
       }
     )
+  }
+
+  switchLang(lang: string) {
+    this.translate.use(lang);
   }
 
 }

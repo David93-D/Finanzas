@@ -25,21 +25,21 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" aria-current="page" routerLink="/finanzas-personales" style="color: #92BA92;">
-              Finanzas Personales
+              {{'Finanzas Personales' | translate }}
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" routerLink="/analisis-macro" style="color: #92BA92;">Análisis Macro</a>
+            <a class="nav-link" aria-current="page" routerLink="/analisis-macro" style="color: #92BA92;">{{'Análisis Macro' | translate }}</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" routerLink="/perfil" style="color: #92BA92;">Tu perfil</a>
+            <a class="nav-link" aria-current="page" routerLink="/perfil" style="color: #92BA92;">{{'Perfil' | translate }}</a>
           </li>
           <li 
             class="nav-item"
             *ngIf="usuario != ''"
           >
             <a class="nav-link" aria-current="page" (click)="logout()" style="color: #92BA92; cursor: pointer;">
-              Cerrar Sesión
+              {{'Cerrar Sesión' | translate }}
             </a>
           </li>
           <p></p>
@@ -47,6 +47,20 @@
         <div class="d-flex" *ngIf="usuario != ''">
           <p>{{ usuario }}</p>
         </div>
+        <!-- SELECTOR DE TRADUCCIÓN -->
+        <span class="form-inline">
+          <select 
+              class="form-control" 
+              #selectedLang 
+              (change)="switchLang(selectedLang.value)">
+            <option *ngFor="let language of translate.getLangs()" 
+              [value]="language"
+              [selected]="language === translate.currentLang">
+              {{ language }}
+            </option>
+          </select>
+        </span>
+        <!-- FIN SELECTOR DE TRADUCCIÓN -->
       </div>
     </div>
   </nav>
