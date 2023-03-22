@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { IRegistro } from '../../interfaces/i-registro';
 import { RegistrosService } from '../../services/registros.service';
+import { MesesDelAnyo } from 'src/app/enums/enum';
 
 @Component({
   selector: 'finanzas-personales',
@@ -24,8 +25,6 @@ export class FinanzasPersonalesComponent implements OnInit {
   };
 
   fecha = new Date();
-
-  meses = ["", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"]
 
   conceptosGastos = ["-", "Alimentación", "Seguros", "Viajes", "Reparaciones", "Inmovilizado", "Telf/Internet", "Tributos/Impuestos", "Prestamos y créditos", "Reformas y mejoras", "Ropa y accesorios", "Educación y aprendizaje"];
 
@@ -84,7 +83,7 @@ export class FinanzasPersonalesComponent implements OnInit {
         this.mesNum = this.mesNum-1;
         if (this.mesNum == 0) {
           this.mesNum = 12;
-          this.mesActual = this.meses[this.mesNum];
+          this.mesActual = MesesDelAnyo[this.mesNum];
           this.anyoActual = this.anyoActual-1;
         }
         break;
@@ -92,7 +91,7 @@ export class FinanzasPersonalesComponent implements OnInit {
         this.mesNum = this.mesNum+1;
         if (this.mesNum == 13) {
           this.mesNum = 1;
-          this.mesActual = this.meses[this.mesNum];
+          this.mesActual = MesesDelAnyo[this.mesNum];
           this.anyoActual = this.anyoActual+1;
         }
         break;
@@ -101,7 +100,7 @@ export class FinanzasPersonalesComponent implements OnInit {
     }
     this.date.anyo = this.anyoActual;
     this.date.mes = this.mesNum;
-    this.mesActual = this.meses[this.mesNum];
+    this.mesActual = MesesDelAnyo[this.mesNum];
     this.date.anyo = this.anyoActual;
     this.date.mes = this.mesNum;
     this.listarRegistros();
